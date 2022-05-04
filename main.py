@@ -38,7 +38,7 @@ class TaskType(db.Model):
 
 
 class Task(db.Model):
-    __tablename__ = "task_types"
+    __tablename__ = "tasks"
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
     task_type_id = Column(Integer, ForeignKey("task_types.id"))
