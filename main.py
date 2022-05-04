@@ -15,15 +15,14 @@ dp = Dispatcher(bot)
 db = Gino()
 
 
-def assign_task(task, user):
-    pass
+# def assign_task(task, user):
+#     pass
 
-def make_weekly_tasks():
-    pass
-
-def schedule_tasks(tasks, users):
-    pass
-
+# def make_weekly_tasks():
+#     pass
+#
+# def schedule_tasks(tasks, users):
+#     pass
 
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
