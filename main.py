@@ -1,8 +1,10 @@
 #!/bin/python3
 import logging
+from datetime import datetime
 
 from gino import Gino
 from aiogram import Bot, Dispatcher, executor, types
+from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey
 
 API_TOKEN = '5343445681:AAGJVCks7Gx58Q9ShrPEPrssZh4yylEi2ME'
 
@@ -15,14 +17,29 @@ dp = Dispatcher(bot)
 db = Gino()
 
 
-# def assign_task(task, user):
-#     pass
+class User(db.Model):
+    __tablename__ = "users"
+    user_id = Column(Integer, primary_key=True)
+    name = Column(String(32))
 
-# def make_weekly_tasks():
-#     pass
-#
-# def schedule_tasks(tasks, users):
-#     pass
+
+class TaskType(db.Model):
+    __tablename__ = "task_types"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(32))
+    value = Column(Integer)
+    repeat_days = Column(Integer)
+
+
+class Task(db.Model):
+    __tablename__ = "task_types"
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.user_id"))
+    task_type_id = Column(Integer, ForeignKey("task_types.id"))
+    added_at = Column(TIMESTAMP(), default=datetime.utcnow, nullable=True)
+    competed_at = Column(TIMESTAMP(), default=datetime.utcnow, nullable=True)
+    deadline = Column(TIMESTAMP(), default=datetime.utcnow, nullable=True)
+
 
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
