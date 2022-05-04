@@ -6,6 +6,9 @@ from gino import Gino
 from aiogram import Bot, Dispatcher, executor, types
 import aioschedule
 import asyncio
+
+from sqlalchemy import Column, Integer, String, ForeignKey, TIMESTAMP
+
 import database
 import distributor
 
