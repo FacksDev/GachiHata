@@ -72,9 +72,14 @@ async def scheduler():
 
 
 async def main(*args):
-    await db.set_bind('postgresql://localhost/gino')
+    await db.set_bind('postgres://postgres:postgres@localhost:5432/gachi')
     await db.gino.create_all()
+
+    await database.create_users(db, User)
+    await database.create_tasks(db, TaskType)
+
     asyncio.create_task(scheduler())
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True, on_startup=main)
